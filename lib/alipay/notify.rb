@@ -4,7 +4,7 @@ module Alipay
       #for call_back_url return
       def self.verify_sign_only?(params)
         params = Utils.stringify_keys(params)
-        Sign::Wap.verify?(params)
+        Sign::Wap.verify?(params) && params['result'] == 'success'
       end
 
       #for notify_url return

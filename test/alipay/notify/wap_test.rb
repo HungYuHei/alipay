@@ -13,8 +13,12 @@ class Alipay::Notify::WapTest < Test::Unit::TestCase
     @sign_params = @notify_params.merge(:sign => Digest::MD5.hexdigest("#{query}#{Alipay.key}"))
   end
 
-  def test_sign_notify
-    assert Alipay::Notify::Wap.verify_sign_only?(@sign_params)
+  def test_sign_notify_when_success
+    assert Alipay::Notify::Wap.verify_sign_only?(@sign_params.merge('result'=>'success'))
+  end
+
+  def test_sign_notify_failure
+    assert !Alipay::Notify::Wap.verify_sign_only?(@sign_params.merge('result'=>'failure'))
   end
 
   def test_unsign_notify
