@@ -12,7 +12,7 @@ module Alipay
     # 共 24 位(8 位当前日期 + 9 位纳秒 + 1 位随机数)
     def self.generate_batch_no
       time = Time.now
-      time.strftime('%Y%m%d%H%M%S') + time.nsec.to_s + Random.new.rand(1..9).to_s
+      time.strftime('%Y%m%d%H%M%S') + time.nsec.to_s.rjust(9,'0') + Random.new.rand(1..9).to_s
     end
   end
 end
